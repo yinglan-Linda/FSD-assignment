@@ -1,0 +1,25 @@
+Four main menus: 
+University System - Lets users switch between Student and Admin systems - Everyone
+Student System - Register / Login (with Regex validation for email and password) - Students
+Subject Enrolment System - Enroll, Remove, View Subjects, Change Password - Logged-in Students
+Admin System - Show all students, Group or Sort them, Remove or Clear data - Admin Only
+
+Rules:
+Naming: 
+    Variables / Functions: use camelCase (e.g. studentName, getPassword).
+    Classes: use PascalCase (e.g. UserLogin, UniSystemEntry) 
+    Private constants or attributes inside a class start with an underscore (e.g. _adminName: "Jone Smith" )
+Comments:
+    Every module, class, and function must have a docstring before its definition, including:
+        A one-line summary of what the function or what the code does,
+        a short explanation after code line to show the parameters and return values. (optional)
+Git:
+    Before submit the code, each member creates their own branch locally.
+    Use small, clear commits to explain what was changed.
+    Merges the branches after team reviews.
+
+
+
+
+
+
