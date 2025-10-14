@@ -1,0 +1,40 @@
+{
+    "student": [
+        {
+            "name": "Alex",
+            "ID": "250201",
+            "email": "Alex.A@university.com",
+            "password": "123456",
+            "subject": [
+                {
+                    "id": "311",
+                    "mark": 90,
+                    "grade": "HD"
+                },
+                {
+                    "id": "412",
+                    "mark": 62,
+                    "grade": "P"
+                }
+            ]
+        },
+        {
+            "name": "Linda",
+            "email": "Linda.L@university.com",
+            "ID": "250202",
+            "password": "123456",
+            "subject": [
+                {
+                    "id": "311",
+                    "mark": 81,
+                    "grade": "D"
+                },
+                {
+                    "id": "412",
+                    "mark": 72,
+                    "grade": "C"
+                }
+            ]
+        }
+    ]
+}
