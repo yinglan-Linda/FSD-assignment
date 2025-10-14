@@ -1,5 +1,6 @@
 import re
 
+# get user input
 def getInput(prompt: str) -> str:
     return input(prompt).strip().lower()
 
