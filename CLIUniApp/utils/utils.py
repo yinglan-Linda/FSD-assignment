@@ -1,8 +1,10 @@
 import re
+from colorama import Fore,Style
 
 # get user input
+# get user input
 def getInput(prompt: str) -> str:
-    return input(prompt).strip().lower()
+    return input(f"{Fore.BLUE}" + prompt + Style.RESET_ALL).strip().lower()
 
 """ validator """
 """valid email"""
@@ -14,3 +16,9 @@ def validate_email(email):
 def validate_password(password):
     pattern = re.compile(r"^[A-Z][a-zA-Z]{5,}[0-9]{3,}$")
     return pattern.match(password) is not None
+
+""" colorful message """
+def infoMSG(msg): 
+    print(f"{Fore.YELLOW}{msg}{Style.RESET_ALL}") # 黄色：提示信息
+def errMSG(msg):
+    print(f"{Fore.RED}{msg}{Style.RESET_ALL}")  # 红色：报错

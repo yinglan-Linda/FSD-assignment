@@ -1,20 +1,21 @@
-from utils.utils import getInput
+import utils.utils as utils
+# from colorama import Fore
 
 """ admin system """
 class AdminSystem:    
     def helpMsg(self):
-        print("\nAdmin Menu:")
+        print("Admin Menu:")
         print("(c) Clear Database File")
         print("(g) Group Students by Grade")
         print("(p) Partition Students by Pass/Fail")
         print("(r) Remove a Student")
         print("(s) Show All Students")
         print("(x) Exit to Main Menu")
-        self.getUserInput()
+        # utils.getInput("Start menu(c/g/p/r/s/x):")
 
 """ admin main menu """
 def adminMenu(self):
-    choice = getInput("Start menu(c/g/p/r/s/x):")
+    choice = utils.getInput("Start menu(c/g/p/r/s/x):")
     while (choice != 'x'):
         match choice:
             case 'c':
@@ -30,8 +31,9 @@ def adminMenu(self):
             case 'h':
                 self.helpMsg()
             case _:
-                print("Unavailable option. You can input 'h' to show more detail.")
-        choice = getInput("Start menu(c/g/p/r/s/x):") # 更新一次 user input
-    print("Returning to main menu...")
+                # print("Unavailable option. You can input 'h' to show more detail.")
+                utils.infoMSG("Unavailable option. You can input 'h' to show more detail.")
+        choice = utils.getInput("Start menu(c/g/p/r/s/x):") # 更新一次 user input
+    utils.infoMSG("Returning to main menu...")
     return
     

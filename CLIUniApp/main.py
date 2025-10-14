@@ -1,11 +1,13 @@
 import admin_system
 import student_system
-from utils.utils import getInput
+import utils.utils as utils
+from colorama import init, Fore
+init(autoreset=True)   # 打印一次颜色后自动复位，避免后面整行都被染色
 
 """ main entrance """
 def main():
     print("Welcome to university!")
-    role = getInput("Choose your role \n(a)admin\n(s)student\n(x)Exit\n>")
+    role = utils.getInput("University system: (a)admin/ (s)student/ (x)Exit>")
 
     while (role != 'x'):
         match role:
@@ -17,10 +19,12 @@ def main():
                 student_system.studentMenu(student) #把实例传入student_system
                 pass
             case _:
-                print("Unavailable option. You can input 'h' to show more detail.")
-        role = getInput("Choose your role \n(a)admin\n(s)student\n(x)Exit\n>") # 更新一次 user input
+                utils.infoMSG("Unavailable option. You can input 'h' to show more detail.")
+                # print("Unavailable option. You can input 'h' to show more detail.")
+        role = utils.getInput("University system: (a)admin/ (s)student/ (x)Exit>") # 更新一次 user input
 
-    print("Goodbye.")
+    utils.infoMSG("Thank you.")
+    # print(Fore.YELLOW + "Thank you.")
 
 if __name__ == "__main__":
     main()
