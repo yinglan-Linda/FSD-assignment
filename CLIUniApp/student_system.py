@@ -1,5 +1,4 @@
 import utils.utils as utils
-# from colorama import Fore
 
 """ student system """
 class StudentSystem:
