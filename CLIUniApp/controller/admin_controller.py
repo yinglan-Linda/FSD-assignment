@@ -44,7 +44,7 @@ class AdminController:
         
         for student in students:
             subjectsCount = len(student.subjects)
-            result.append(f"{student.id:<10} {student.name:<20} {student.email:<30} {subjects_count:<10}")
+            result.append(f"{student.id:<10} {student.name:<20} {student.email:<30} {subjectsCount:<10}")
         
         result.append(f"{'='*80}")
         result.append(f"Total Students: {len(students)}\n")
@@ -154,3 +154,4 @@ class AdminController:
         result.append(f"{'='*80}\n")
         
         return "\n".join(result)
+
