@@ -123,6 +123,9 @@ class Student:
             print("Student has not passed, average mark is", average)
             return False
         
+    def generateStudentId():
+        #Generate a random student ID between 100000 and 999999.
+        return random.randint(100000, 999999)
     
 
         
