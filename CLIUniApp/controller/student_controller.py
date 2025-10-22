@@ -3,13 +3,13 @@ import random
 import pathlib
 from models.student import Student
 
-currentFile = pathlib.path(__file__)
+currentFile = pathlib.Path(__file__)
 
 controllerDir = currentFile.parent
 
 rootDir = controllerDir.parent
 
-jsonFilePath = rootDir / "data" / "students.json"
+jsonFilePath = rootDir / "data" / "student.json"
 
 def loadStudents():
     #Load students data from the JSON file.
@@ -40,14 +40,14 @@ class StudentController:
     def __init__(self):
         self.students = loadStudents()\
 
-    def _findStudentById(self, student_id: int) -> Optional[dict[str, any]]:
+    def _findStudentById(self, student_id: int) -> dict[str, any]:
         #Find a student by their ID.
         for student in self.students:
             if student.get['id'] == student_id:
                 return student
         return None
 
-    def _findStudentByEmail(self, email: str) -> Optional[dict[str, any]]:
+    def _findStudentByEmail(self, email: str) -> dict[str, any]:
         #Find a student by their email.
         email_lower = email.lower()
         for student in self.students:
@@ -91,7 +91,7 @@ class StudentController:
 
         return f"Student registered successfully with ID {new_id}."
 
-    def loginStudent(self, email: str, password: str) -> union[dict[str, any]]:
+    def loginStudent(self, email: str, password: str) -> dict[str, any]:
         #Login a student using email and password.
         if not email.strip():
             print("Email cannot be empty.")
