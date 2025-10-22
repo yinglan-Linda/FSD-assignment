@@ -7,6 +7,8 @@ init(autoreset=True)   # 打印一次颜色后自动复位，避免后面整行�
 
 """ main entrance """
 def main():
+    
+    studentCtrl = StudentController()  # 初始化学生控制器
     print("Welcome to university!")
     role = utils.getInput("University system: (a)admin/ (s)student/ (x)Exit>")
 
@@ -20,7 +22,7 @@ def main():
                 #student_system.run(student) #把实例传入student_system
                 #pass
                 
-                student = student_system.StudentSystem() # 创建实例
+                student = student_system.StudentSystem(studentCtrl) # 创建实例
                 student.run() #把实例传入student_system
             case _:
                 utils.infoMSG("Unavailable option. You can input 'h' to show more detail.")
