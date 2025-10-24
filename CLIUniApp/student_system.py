@@ -4,7 +4,7 @@ from controller.student_controller import StudentController
 
 """ student system """
 class StudentSystem:
-    def __init__(self):
+    def __init__(self, controller: StudentController):
         self.studentController = StudentController()
         self.currentStudent = None        # None 表示未登录/未注册
 
