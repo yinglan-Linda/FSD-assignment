@@ -1,0 +1,30 @@
+import admin_system
+import student_system
+import utils.utils as utils
+from colorama import init, Fore
+init(autoreset=True)   # 打印一次颜色后自动复位，避免后面整行都被染色
+
+""" main entrance """
+def main():
+    print("Welcome to university!")
+    role = utils.getInput("University system: (a)admin/ (s)student/ (x)Exit>")
+
+    while (role != 'x'):
+        match role:
+            case 'a':
+                admin = admin_system.AdminSystem() # 创建实例
+                admin_system.adminMenu(admin) #把实例传入admin_system
+            case 's':
+                student = student_system.StudentSystem() # 创建实例
+                student_system.studentMenu(student) #把实例传入student_system
+                pass
+            case _:
+                utils.infoMSG("Unavailable option. You can input 'h' to show more detail.")
+                # print("Unavailable option. You can input 'h' to show more detail.")
+        role = utils.getInput("University system: (a)admin/ (s)student/ (x)Exit>") # 更新一次 user input
+
+    utils.infoMSG("Thank you.")
+    # print(Fore.YELLOW + "Thank you.")
+
+if __name__ == "__main__":
+    main()
