@@ -52,8 +52,14 @@ class StudentController:
     def _findStudentById(self, student_id: int) -> dict[str, any]:
         #Find a student by their ID.
         for student in self.students:
-            if student.get['id'] == student_id:
-                return student
+            id_value = student.get('id')
+            
+            if id_value is None:
+                id_value = student.get('ID')
+            
+            if id_value is not None:
+                if str(id_value) == str(student_id):
+                    return student
         return None
 
     def _findStudentByEmail(self, email: str) -> dict[str, any]:
@@ -88,7 +94,7 @@ class StudentController:
         new_id = self._generateNewStudentId()
 
         new_student = {
-            "id": new_id,
+            "ID": new_id,
             "name": name.strip(),
             "email": email.strip(),
             "password": password,
