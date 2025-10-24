@@ -11,15 +11,23 @@ rootDir = controllerDir.parent
 
 jsonFilePath = rootDir / "data" / "student.json"
 
-def loadStudents():
+def loadStudents() -> list[dict[str, any]]:
     #Load students data from the JSON file.
     try:
         with open(jsonFilePath, "r", encoding='utf-8') as file:
-            students_data = json.load(file)
-            if not isinstance(students_data, list):
-                print("Invalid data format in students file. Returning empty list.")
-                return []
-            return students_data
+            data = json.load(file)
+            
+            if isinstance(data, dict) and 'student' in data:
+                student_list = data['student']
+                if isinstance(student_list, list):
+                    return student_list
+                
+            if isinstance(data, list):
+                return data
+            # if not isinstance(students_data, list):
+            #     print("Invalid data format in students file. Returning empty list.")
+            #     return []
+            # return students_data
     except FileNotFoundError: 
         print("Students data file not found. Returning empty list.")
         return []
@@ -27,11 +35,12 @@ def loadStudents():
         print("Error decoding JSON from students data file. Returning empty list.")
         return []
 
-def saveStudents(students_data):
+def saveStudents(data: list[dict[str, any]]) -> None:
     #Save students data to the JSON file.
     try:
+        data_to_save = {"student": data}
         with open(jsonFilePath, "w", encoding='utf-8') as file:
-            json.dump(students_data, file, indent=4)
+            json.dump(data_to_save, file, indent=4, ensure_ascii=False)
     except Exception as e:
         print(f"Error saving students data: {e}")
 
@@ -51,7 +60,7 @@ class StudentController:
         #Find a student by their email.
         email_lower = email.lower()
         for student in self.students:
-            if student.get('email') == email:
+            if student.get('email', '').lower() == email_lower:
                 return student
         return None
 
@@ -110,5 +119,25 @@ class StudentController:
                 return("Incorrect email or password.")
         else:
             return("Incorrect email or password.")
+        
+        # if student:
+        #     # --- (1. ADD THESE DEBUG LINES) ---
+        #     stored_password = student.get("password")
+        #     print("\n[DEBUG] --- Verifying Login ---")
+        #     print(f"[DEBUG] Email found for user: {student.get('name')}")
+        #     print(f"[DEBUG] Password from JSON: '{stored_password}' (Type: {type(stored_password)})")
+        #     print(f"[DEBUG] Password you typed: '{password}' (Type: {type(password)})")
+        #     print("[DEBUG] -------------------------\n")
+        #     # --- (END OF DEBUG LINES) ---
+
+        #     if stored_password == password: # The actual comparison
+        #         return student  # 登录成功！
+        #     else:
+        #         return "错误：Email 或密码不正确。"
+        # else:
+        #     # --- (2. ADD THIS DEBUG LINE) ---
+        #     print(f"\n[DEBUG] No student found with email: '{email}'\n")
+        #     # --- (END OF DEBUG LINE) ---
+        #     return "错误：Email 或密码不正确。"
 
 
