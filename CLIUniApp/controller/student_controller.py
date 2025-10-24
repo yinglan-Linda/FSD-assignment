@@ -47,7 +47,7 @@ def saveStudents(data: list[dict[str, any]]) -> None:
 class StudentController:
 
     def __init__(self):
-        self.students = loadStudents()\
+        self.students = loadStudents()
 
     def _findStudentById(self, student_id: int) -> dict[str, any]:
         #Find a student by their ID.
@@ -125,6 +125,13 @@ class StudentController:
                 return("Incorrect email or password.")
         else:
             return("Incorrect email or password.")
+        
+        
+    def check_email_exists(self, email:str) -> bool:
+        if self._findStudentByEmail(email) is not None:
+            return True
+        return False
+
         
         # if student:
         #     # --- (1. ADD THESE DEBUG LINES) ---

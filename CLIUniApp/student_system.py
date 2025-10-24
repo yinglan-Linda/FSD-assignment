@@ -89,12 +89,20 @@ class StudentSystem:
         print("Student Register selected")
         name = utils.getInput("Enter name: ")
         email = utils.getInput("Enter email: ")
-        password = getpass.getpass("Enter password: ")
+        
 
         if not utils.validate_email(email):
             utils.errMSG("Invalid email format.")
+            utils.errMSG("Email must ended with '@university.com'.")
             return
     
+        if self.studentController.check_email_exists(email):
+            utils.errMSG("Email is already registered.")
+            return
+            
+        utils.infoMSG("Email Available.")
+        password = getpass.getpass("Enter password: ")
+        
         if not utils.validate_password(password):
             utils.errMSG("Invalid password format.")
             return
@@ -110,6 +118,7 @@ class StudentSystem:
         if self.currentStudent:
             infoMSG("Logging out...")
             self.currentStudent = None
+            
 
 
 

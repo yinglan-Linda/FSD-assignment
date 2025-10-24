@@ -26,7 +26,7 @@ class Student:
     def toDictionary(self):
         #Convert the student object to a dictionary representation.
         return {
-            "id": self.id,
+            "ID": self.id,
             "name": self.name,
             "email": self.email,
             "password": self.password,
