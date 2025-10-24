@@ -26,9 +26,12 @@ class StudentSystem:
         while True:
             self.showMenu()
 
-            choice = utils.getInput("Student system (l/r/x):")
+            
 
             if self.currentStudent == None:
+                
+                choice = utils.getInput("Student system (l/r/x):")
+                
                 match choice:
                     # """ Unlogged function """
                     case 'l':
@@ -41,6 +44,9 @@ class StudentSystem:
                     case _:
                         utils.errMSG("Unavailable option.")
             else:
+                
+                choice = utils.getInput("Student system (c/e/d/s/x):")
+                
                 match choice:
                     # """ Logged function  """
                     case 'c':
@@ -63,7 +69,7 @@ class StudentSystem:
         #login handler
         print("Student Login selected") 
         email = utils.getInput("Enter email: ")
-        password = utils.getInput("Enter password: ")
+        password = input("Enter password: ")
 
         if not utils.validate_email(email):
             utils.errMSG("Invalid email format.")
