@@ -1,6 +1,7 @@
 from utils.utils import getInput, infoMSG, errMSG, validate_email, validate_password
 import utils.utils as utils
 from controller.student_controller import StudentController
+import getpass
 
 """ student system """
 class StudentSystem:
@@ -69,7 +70,7 @@ class StudentSystem:
         #login handler
         print("Student Login selected") 
         email = utils.getInput("Enter email: ")
-        password = input("Enter password: ")
+        password = getpass.getpass("Enter password: ")
 
         if not utils.validate_email(email):
             utils.errMSG("Invalid email format.")
@@ -88,7 +89,7 @@ class StudentSystem:
         print("Student Register selected")
         name = utils.getInput("Enter name: ")
         email = utils.getInput("Enter email: ")
-        password = utils.getInput("Enter password: ")
+        password = getpass.getpass("Enter password: ")
 
         if not utils.validate_email(email):
             utils.errMSG("Invalid email format.")
