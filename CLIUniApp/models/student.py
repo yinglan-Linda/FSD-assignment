@@ -125,7 +125,7 @@ class Student:
         
     def generateStudentId():
         #Generate a random student ID between 100000 and 999999.
-        return random.randint(100000, 999999)
+        return str(random.randint(100000, 999999))
     
 
         
