@@ -1,5 +1,6 @@
 from models.subject import Subject
 import utils.utils as utils
+import models.database as db
 import logging
 import re
 

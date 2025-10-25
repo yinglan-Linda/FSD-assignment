@@ -1,7 +1,7 @@
 {
     "student": [
         {
-            "name": "Alex",
+            "name": "Alex A",
             "ID": "250201",
             "email": "Alex.A@university.com",
             "password": "123456",
@@ -19,7 +19,7 @@
             ]
         },
         {
-            "name": "Linda",
+            "name": "Linda L",
             "email": "Linda.L@university.com",
             "ID": "250202",
             "password": "123456",

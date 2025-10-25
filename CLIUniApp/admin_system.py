@@ -1,7 +1,12 @@
 import utils.utils as utils
+from controller.admin_controller import AdminController
 
 """ admin system """
-class AdminSystem:    
+class AdminSystem:
+    def __init__(self, controller: AdminController | None = None):
+        # 创建并保存实例
+        self.adminController = controller or AdminController() 
+
     def helpMsg(self):
         print("Admin Menu:")
         print("(c) Clear Database File")
@@ -12,27 +17,31 @@ class AdminSystem:
         print("(x) Exit to Main Menu")
         # utils.getInput("Start menu(c/g/p/r/s/x):")
 
-""" admin main menu """
-def adminMenu(self):
-    choice = utils.getInput("Start menu(c/g/p/r/s/x):")
-    while (choice != 'x'):
-        match choice:
-            case 'c':
-                pass
-            case 'g':
-                pass
-            case 'p':
-                pass
-            case 'r':
-                pass
-            case 's':
-                pass
-            case 'h':
-                self.helpMsg()
-            case _:
-                # print("Unavailable option. You can input 'h' to show more detail.")
-                utils.infoMSG("Unavailable option. You can input 'h' to show more detail.")
-        choice = utils.getInput("Start menu(c/g/p/r/s/x):") # 更新一次 user input
-    utils.infoMSG("Returning to main menu...")
-    return
+    """ admin main menu """
+    def run(self):
+        choice = utils.getInput("Admin System(c/g/p/r/s/x):")
+        while (choice != 'x'):
+            match choice:
+                case 'c':
+                    ok, msg = self.adminController.clearDatabase()
+                    utils.infoMSG(msg) if ok else utils.errMSG(msg)
+                    # AdminController.clearDatabase()
+                case 'g':
+                    print(self.adminController.groupByGrade())
+                case 'p':
+                    print(self.adminController.partitionStudents())
+                case 'r':
+                    sid = utils.getInput("Enter student ID to remove:")
+                    ok, msg = self.adminController.removeStudent(sid)
+                    utils.infoMSG(msg) if ok else utils.errMSG(msg)
+                case 's':
+                    print(self.adminController.showAllStudents())
+                case 'h':
+                    self.helpMsg()
+                case _:
+                    # print("Unavailable option. You can input 'h' to show more detail.")
+                    utils.infoMSG("Unavailable option. You can input 'h' to show more detail.")
+            choice = utils.getInput("Start menu(c/g/p/r/s/x):") # 更新一次 user input
+        utils.infoMSG("Returning to main menu...")
+        return
     
