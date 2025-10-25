@@ -1,4 +1,3 @@
-from utils.utils import getInput, infoMSG, errMSG, validate_email, validate_password
 import utils.utils as utils
 from controller.student_controller import StudentController
 import getpass
@@ -26,8 +25,6 @@ class StudentSystem:
     def run(self):
         while True:
             self.showMenu()
-
-            
 
             if self.currentStudent == None:
                 
@@ -116,48 +113,5 @@ class StudentSystem:
     def _handleLogout(self):
         #logout handler
         if self.currentStudent:
-            infoMSG("Logging out...")
+            utils.infoMSG("Logging out...")
             self.currentStudent = None
-            
-
-
-
-
-
-    # self.showMenu()
-
-    # # choice = getInput("Enter your choice: ")
-    # choice = utils.getInput("Student system (l/r/x):")
-
-    # while (choice != 'x'):
-    #     match choice:
-    #         # """ Unlogged function """
-    #         case 'l':
-    #             utils.infoMSG("Login successful")
-    #             self.showMenu()
-    #             pass 
-    #         case 'r':
-    #             utils.infoMSG("Register successful. You are now logged in.")
-    #             self.showMenu()
-    #             pass
-    #         # """ Logged function  """
-    #         case 'c':
-    #             pass
-    #         case 'e':
-    #             pass
-    #         case 'd':
-    #             pass
-    #         case 's':
-    #             pass
-    #         case _:
-    #             utils.errMSG("Unavailable option.")
-    #             # print(Fore.RED + "Unavailable option.")
-    #     choice = utils.getInput("Enter your choice: ")  # 更新一次 user input
-    
-    # if self.currentStudent == None:
-    #     utils.infoMSG("Returning to main menu...")  # 返回主菜单
-    # else:
-    #     self.currentStudent = None
-    #     utils.infoMSG("Logout successful")
-    #     utils.infoMSG("Returning to main menu...") # 返回主菜单
-    # return
