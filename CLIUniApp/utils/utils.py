@@ -8,12 +8,12 @@ def getInput(prompt: str) -> str:
 
 """ validator """
 """valid email"""
-def validate_email(email):
+def validateEmail(email):
     pattern = re.compile(r"^[a-zA-Z0-9]+\.[a-zA-Z0-9]+@university\.com$")
     return pattern.match(email) is not None
 
 """ valid password """
-def validate_password(password):
+def validatePassword(password):
     pattern = re.compile(r"^[A-Z][a-zA-Z]{5,}[0-9]{3,}$")
     return pattern.match(password) is not None
 

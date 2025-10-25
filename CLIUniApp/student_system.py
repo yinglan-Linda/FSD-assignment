@@ -1,5 +1,6 @@
 import utils.utils as utils
 from controller.student_controller import StudentController
+from controller.subject_controller import SubjectController
 import getpass
 
 """ student system """
@@ -48,13 +49,13 @@ class StudentSystem:
                 match choice:
                     # """ Logged function  """
                     case 'c':
-                        pass
+                        SubjectController.change_password(self)
                     case 'e':
-                        pass
+                        SubjectController.enrol_subject(self)
                     case 'd':
-                        pass
+                        SubjectController.remove_subject(self)
                     case 's':
-                        pass
+                        SubjectController.show_subjects(self)
                     case 'x':
                         self._handleLogout()
                         utils.infoMSG("Logout successful")
@@ -69,7 +70,7 @@ class StudentSystem:
         email = utils.getInput("Enter email: ")
         password = getpass.getpass("Enter password: ")
 
-        if not utils.validate_email(email):
+        if not utils.validateEmail(email):
             utils.errMSG("Invalid email format.")
             return
     
@@ -88,7 +89,7 @@ class StudentSystem:
         email = utils.getInput("Enter email: ")
         
 
-        if not utils.validate_email(email):
+        if not utils.validateEmail(email):
             utils.errMSG("Invalid email format.")
             utils.errMSG("Email must ended with '@university.com'.")
             return
@@ -100,7 +101,7 @@ class StudentSystem:
         utils.infoMSG("Email Available.")
         password = getpass.getpass("Enter password: ")
         
-        if not utils.validate_password(password):
+        if not utils.validatePassword(password):
             utils.errMSG("Invalid password format.")
             return
 

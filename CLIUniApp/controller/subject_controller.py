@@ -1,4 +1,5 @@
 from models.subject import Subject
+import utils.utils as utils
 import logging
 import re
 
@@ -15,9 +16,9 @@ class SubjectController:
         if not student.can_enrol():
             return False, "Students are allowed to enrol in 4 subjects only"
 
-        existing_ids = {s.id for s in getattr(student, "subjects", [])}
+        existingIds = {s.id for s in getattr(student, "subjects", [])}
         subject = Subject()
-        while subject.id in existing_ids:
+        while subject.id in existingIds:
             subject = Subject()
 
         success, msg = student.enrol_subject(subject)
@@ -64,12 +65,12 @@ class SubjectController:
         return "\n".join(lines)
 
     def change_password(self, new_password):
-        from utils.validators import Validators
+        
         student = self.student_controller.get_current_student()
         if not student:
             return False, "Please login first"
 
-        valid, msg = Validators.validate_password(new_password)
+        valid, msg = utils.validatePassword(new_password)
         if not valid:
             return False, msg
 

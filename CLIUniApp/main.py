@@ -17,15 +17,11 @@ def main():
             case 'a':
                 admin = admin_system.AdminSystem() # 创建实例
                 admin_system.adminMenu(admin) #把实例传入admin_system
-            case 's':
-                #student = student_system.StudentSystem() # 创建实例
-                #student_system.run(student) #把实例传入student_system
-                #pass
-                
+            case 's':                
                 student = student_system.StudentSystem(studentCtrl) # 创建实例
                 student.run() #把实例传入student_system
             case _:
-                utils.infoMSG("Unavailable option. You can input 'h' to show more detail.")
+                utils.infoMSG("Unavailable option.")
                 # print("Unavailable option. You can input 'h' to show more detail.")
         role = utils.getInput("University system: (a)admin/ (s)student/ (x)Exit>") # 更新一次 user input
 
