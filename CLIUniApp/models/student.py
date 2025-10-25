@@ -26,7 +26,7 @@ class Student:
     def toDictionary(self):
         #Convert the student object to a dictionary representation.
         return {
-            "id": self.id,
+            "ID": self.id,
             "name": self.name,
             "email": self.email,
             "password": self.password,
@@ -125,7 +125,7 @@ class Student:
         
     def generateStudentId():
         #Generate a random student ID between 100000 and 999999.
-        return random.randint(100000, 999999)
+        return str(random.randint(100000, 999999))
     
 
         
