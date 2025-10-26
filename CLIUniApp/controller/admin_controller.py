@@ -40,8 +40,8 @@ class AdminController:
         students = self.db.readStudents()
         if not students:
             return "No students in the database"
-        passStudents = [s for s in fullEnrolled if s.hasPass()]
-        failStudents = [s for s in fullEnrolled if len(s.subjects) > 0 and not s.hasPassed()]
+        passStudents = [s for s in students if s.hasPass()]
+        failStudents = [s for s in students if len(s.subjects) > 0 and not s.hasPassed()]
         result = [f"{Fore.YELLOW}PASS/FAIL PARTITION:{Style.RESET_ALL}"]
         result.append(f"PASS --> ")
         if passStudents:
@@ -83,6 +83,7 @@ class AdminController:
                     else: # 对于未选课的学生
                         result.append(f"{student.name} :: {student.id} --> (No subjects enrolled)")
         return "\n".join(result)
+
 
 
 
