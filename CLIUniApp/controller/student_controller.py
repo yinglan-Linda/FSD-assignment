@@ -1,6 +1,6 @@
 import json
-import random
 import pathlib
+from typing import Optional, Any
 from models.student import Student
 
 currentFile = pathlib.Path(__file__)
@@ -47,9 +47,10 @@ def saveStudents(data: list[dict[str, any]]) -> None:
 class StudentController:
 
     def __init__(self):
-        self.students = loadStudents()
+        self.students: list[dict[str, Any]] = loadStudents()
+        self.currentStudent: Optional[Student] = None
 
-    def _findStudentById(self, student_id: int) -> dict[str, any]:
+    def _findStudentById(self, student_id: int) -> Optional[dict[str, Any]]:
         #Find a student by their ID.
         for student in self.students:
             id_value = student.get('id')
@@ -62,7 +63,7 @@ class StudentController:
                     return student
         return None
 
-    def _findStudentByEmail(self, email: str) -> dict[str, any]:
+    def _findStudentByEmail(self, email: str) -> Optional[dict[str, Any]]:
         #Find a student by their email.
         email_lower = email.lower()
         for student in self.students:
@@ -73,9 +74,23 @@ class StudentController:
     def _generateNewStudentId(self):
         #Generate a unique student ID.
         while True:
-            new_id = Student.generateStudentId()
+            new_id = Student._generateStudentId()
             if self._findStudentById(new_id) is None:
                 return new_id
+
+    def _studentDictToObj(self, data: dict[str,Any]) -> Student:
+        #Convert stored dict -> runtime Student object.
+        return Student(
+            ID = data.get("ID") or data.get("id"),
+            name = data.get("name", ""),
+            email = data.get("email", ""),
+            password = data.get("password", ""),
+            subject = data.get("subject",[]),
+        )
+        
+    def _studentObjToDict(self, student_obj: Student) -> dict[str, Any]:
+        #Convert runtime Student -> serialisable dict,
+        return student_obj.toDictionary()
 
     def registerStudent(self, name: str, email: str, password: str) -> str:
         #Register a new student.
@@ -106,7 +121,7 @@ class StudentController:
 
         return f"Student registered successfully with ID {new_id}."
 
-    def loginStudent(self, email: str, password: str) -> dict[str, any]:
+    def loginStudent(self, email: str, password: str) -> Optional[Student]:
         #Login a student using email and password.
         if not email.strip():
             print("Email cannot be empty.")
@@ -115,19 +130,37 @@ class StudentController:
             print("Password cannot be empty.")
             return None
 
-        student = self._findStudentByEmail(email)
-
-        if student:
-            stored_password = student.get('password')
-            if stored_password == password:
-                return student
-            else:
-                return("Incorrect email or password.")
-        else:
-            return("Incorrect email or password.")
+        studentDict = self._findStudentByEmail(email)
+        if studentDict is None:
+            return None
+        
+        storedPassword = studentDict.get("password")
+        if storedPassword != password:
+            return None
         
         
-    def check_email_exists(self, email:str) -> bool:
+        self.currentStudent = self._studentDictToObj(studentDict)
+        return self.currentStudent
+    
+    def getCurrentStudent(self) -> Optional[Student]:
+        return self.currentStudent
+        
+    def updateCurrentStudent(self) -> bool:
+        #Push any in-memory modifications on currentStudent back into self.students and save to disk.
+        
+        if self.currentStudent is None:
+            return False
+        
+        studentid = getattr(self.currentStudent, "id", None)
+        for i, st in enumerate(self.students):
+            storedId = st.get("ID") or st.get("id")
+            if str(storedId) == str(studentid):
+                self.students[i] = self._studentObjToDict(self.currentStudent)
+                saveStudents(self.students)
+                return True
+        
+    def checkEmailExists(self, email:str) -> bool:
+        #check if email has been registered
         if self._findStudentByEmail(email) is not None:
             return True
         return False

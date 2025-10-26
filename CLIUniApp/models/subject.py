@@ -2,19 +2,19 @@ import random
 
 class Subject:
     def __init__(self, subject_id=None, mark=None):
-        self.id = subject_id if subject_id else self.generate_id()
-        self.mark = mark if mark is not None else self.generate_mark()
-        self.grade = self.calculate_grade()
+        self.id = subject_id if subject_id else self._generateId()
+        self.mark = mark if mark is not None else self._generateMark()
+        self.grade = self._calculateGrade()
 
     @staticmethod
-    def generate_id():
+    def _generateId():
         return f"{random.randint(1, 999):03d}"
 
     @staticmethod
-    def generate_mark():
+    def _generateMark():
         return random.randint(25, 100)
 
-    def calculate_grade(self):
+    def _calculateGrade(self):
         if self.mark >= 85:
             return "HD"
         elif self.mark >= 75:
@@ -31,3 +31,10 @@ class Subject:
 
     def __repr__(self):
         return f"Subject(id={self.id}, mark={self.mark}, grade={self.grade})"
+
+    def toDict(self):
+        return {
+            "id": self.id,
+            "mark": self.mark,
+            "grade": self.grade
+        }
