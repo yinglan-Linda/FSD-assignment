@@ -19,6 +19,8 @@ def validatePassword(password):
 
 """ colorful message """
 def infoMSG(msg): 
-    print(f"{Fore.YELLOW}{msg}{Style.RESET_ALL}") # 黄色：提示信息
+    return f"{Fore.YELLOW}{msg}{Style.RESET_ALL}" # 黄色：提示信息
 def errMSG(msg):
-    print(f"{Fore.RED}{msg}{Style.RESET_ALL}")  # 红色：报错
+    return f"{Fore.RED}{msg}{Style.RESET_ALL}"  # 红色：报错
+def greenMSG(msg):
+    return f"{Fore.GREEN}{msg}{Style.RESET_ALL}" # 绿色：当前状态

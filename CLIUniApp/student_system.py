@@ -45,10 +45,10 @@ class StudentSystem:
                     case 'r':
                         self._handleRegister()
                     case 'x':
-                        utils.infoMSG("Returning to main menu...")
+                        print(utils.infoMSG("Returning to main menu..."))
                         break
                     case _:
-                        utils.errMSG("Unavailable option.")
+                        print(utils.errMSG("Unavailable option."))
             else:
                 
                 choice = utils.getInput("Student system (c/e/d/s/x):").strip().lower()
@@ -66,113 +66,113 @@ class StudentSystem:
                         print(details)
                     case 'x':
                         self._handleLogout()
-                        utils.infoMSG("Logout successful")
-                        utils.infoMSG("Returning to main menu...")
+                        print(utils.infoMSG("Logout successful"))
+                        print(utils.infoMSG("Returning to main menu..."))
                         break
                     case _:
-                        utils.errMSG("Unavailable option.")
+                        print(utils.errMSG("Unavailable option."))
 
     def _handleLogin(self):
         #login handler
-        utils.infoMSG("Student Login selected") 
+        print(utils.greenMSG("Student Login selected"))
         email = utils.getInput("Enter email: ").strip()
         #password = getpass.getpass("Enter password: ")
         #show password for testing purpose
         password = input("Enter password: ").strip()
 
         if not utils.validateEmail(email):
-            utils.errMSG("Invalid email format.")
+            print(utils.errMSG("Invalid email format."))
             return
     
         studentObj = self.studentController.loginStudent(email, password)
 
         if studentObj is None:
-            utils.errMSG("Login failed. Check email/password.")
+            print(utils.errMSG("Login failed. Check email/password."))
             return
         
-        utils.infoMSG(f"Login successful. Welcome, {studentObj.name}!")
+        print(utils.infoMSG(f"Login successful. Welcome, {studentObj.name}!"))
 
     def _handleRegister(self):
         #register handler
-        utils.infoMSG("Student Register selected")
+        print(utils.greenMSG("Student Register selected"))
         name = utils.getInput("Enter name: ").strip()
         email = utils.getInput("Enter email: ").strip()
         
 
         if not utils.validateEmail(email):
-            utils.errMSG("Invalid email format.")
-            utils.errMSG("Email must ended with '@university.com'.")
+            print(utils.errMSG("Invalid email format."))
+            print(utils.errMSG("Email must ended with '@university.com'."))
             return
     
         if self.studentController.checkEmailExists(email):
-            utils.errMSG("Email is already registered.")
+            print(utils.errMSG("Email is already registered."))
             return
             
-        utils.infoMSG("Email Available.")
+        print(utils.infoMSG("Email Available."))
         #password = getpass.getpass("Enter password: ")
         #show password for testing purpose
         password = input("Enter password: ").strip()
         
         if not utils.validatePassword(password):
-            utils.errMSG("Invalid password format.")
+            print(utils.errMSG("Invalid password format."))
             return
 
         message = self.studentController.registerStudent(name, email, password)
 
         if "successfully" in message:
             self.currentStudent = self.studentController._findStudentByEmail(email)
-            utils.infoMSG("Register successful. You are now logged in.")
+            print(utils.infoMSG("Register successful. You are now logged in."))
 
     def _handleLogout(self):
         #logout handler
         if self.currentStudent:
-            utils.infoMSG("Logging out...")
+            print(utils.infoMSG("Logging out..."))
             self.studentController.currentStudent = None
             
     def _handleChangePassword(self):
         #handle password change
         if not self._isLoggedIn():
-            utils.errMSG("Please Login First.")
+            print(utils.errMSG("Please Login First."))
             return
         
         newPassword = input("Enter new Password: ").strip()
         
         ok, msg = self.subjectController.change_password(newPassword)
         if ok:
-            utils.infoMSG(msg)
+            print(utils.infoMSG(msg))
         else:
-            utils.errMSG(msg)
+            print(utils.errMSG(msg))
             
     def _handleEnrolSubject(self):
         #handle enrollment
         if not self._isLoggedIn():
-            utils.errMSG("Please Login First.")
+            print(utils.errMSG("Please Login First."))
             return
         
         ok, msg = self.subjectController.enrol_subject()
         if ok:
-            utils.infoMSG(msg)
+            print(utils.infoMSG(msg))
         else:
-            utils.errMSG(msg)
+            print(utils.errMSG(msg))
             
     def _handleRemoveSubject(self):
         #handle drop subjects
         if not self._isLoggedIn():
-            utils.errMSG("Please Login First.")
+            print(utils.errMSG("Please Login First."))
             return
         
         subjectId = utils.getInput("Enter subject ID to delete: ").strip()
         
         ok, msg = self.subjectController.remove_subject(subjectId)
         if ok:
-            utils.infoMSG(msg)
+            print(utils.infoMSG(msg))
         else:
-            utils.errMSG(msg)
+            print(utils.errMSG(msg))
             
     def _handleShowSubjects(self):
         #handle display subjects
         if not self._isLoggedIn():
-            utils.errMSG("Please Login First.")
+            print(utils.errMSG("Please Login First."))
             return
         
         details = self.subjectController.show_subjects()
