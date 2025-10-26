@@ -112,20 +112,29 @@ class Student:
         #Check if the student has passed all enrolled subjects.
         #A student must enroll in 4 subjects and average must be at least 50 to pass.
         if len(self.subjects) < 4:
-            print("Student has not enrolled in 4 subjects, currently enrolled in", len(self.subjects))
+            # print("Student has not enrolled in 4 subjects, currently enrolled in", len(self.subjects))
             return False
 
         average = self.calculateAverage()
         if average >= 50:
-            print("Student has passed with an average mark of", average)
+            # print("Student has passed with an average mark of", average)
             return True
         else:
-            print("Student has not passed, average mark is", average)
+            # print("Student has not passed, average mark is", average)
             return False
         
     def generateStudentId():
         #Generate a random student ID between 100000 and 999999.
         return str(random.randint(100000, 999999))
     
+    def getOverallGrade(self):
+        if not self.subjects:
+            return "N/A"
 
+        avg = self.calculateAverage()
+        if avg >= 85: return "HD"
+        if avg >= 75: return "D"
+        if avg >= 65: return "C"
+        if avg >= 50: return "P"
+        return "F"
         

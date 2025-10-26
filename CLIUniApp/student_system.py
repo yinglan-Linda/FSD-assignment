@@ -5,8 +5,9 @@ import getpass
 
 """ student system """
 class StudentSystem:
-    def __init__(self, controller: StudentController):
+    def __init__(self, controller: StudentController): 
         self.studentController = StudentController()
+        self.subjectController = SubjectController(self.studentController)   # 创建实例
         self.currentStudent = None        # None 表示未登录/未注册
 
     def showMenu(self):
@@ -38,31 +39,31 @@ class StudentSystem:
                     case 'r':
                         self._handleRegister()
                     case 'x':
-                        utils.infoMSG("Returning to main menu...")
+                        print(utils.infoMSG("Returning to main menu..."))
                         break
                     case _:
-                        utils.errMSG("Unavailable option.")
+                        print(utils.errMSG("Unavailable option."))
             else:
                 
-                choice = utils.getInput("Student system (c/e/d/s/x):")
+                choice = utils.getInput("Student Course Menu (c/e/d/s/x):")
                 
                 match choice:
                     # """ Logged function  """
                     case 'c':
-                        SubjectController.change_password(self)
+                        self.subjectController.change_password()
                     case 'e':
-                        SubjectController.enrol_subject(self)
+                        self.subjectController.enrol_subject()
                     case 'd':
-                        SubjectController.remove_subject(self)
+                        self.subjectController.remove_subject()
                     case 's':
-                        SubjectController.show_subjects(self)
+                        print(self.subjectController.show_subjects())
                     case 'x':
                         self._handleLogout()
-                        utils.infoMSG("Logout successful")
-                        utils.infoMSG("Returning to main menu...")
+                        print(utils.infoMSG("Logout successful"))
+                        print(utils.infoMSG("Returning to main menu..."))
                         break
                     case _:
-                        utils.errMSG("Unavailable option.")
+                        print(utils.errMSG("Unavailable option."))
 
     def _handleLogin(self):
         #login handler

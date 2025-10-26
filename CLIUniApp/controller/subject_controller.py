@@ -1,14 +1,15 @@
 from models.subject import Subject
 import utils.utils as utils
-import models.database as db
+import models.storage as db
 import logging
 import re
 
 _THREE_DIGIT_ID = re.compile(r"^(?:0[0-9]{2}|[1-9][0-9]{2})$")
 
 class SubjectController:
-    def __init__(self, student_controller):
-        self.student_controller = student_controller
+    def __init__(self, studentController=None):
+        self.db = db.Database()
+        self.student_controller = studentController
 
     def enrol_subject(self):
         student = self.student_controller.get_current_student()
@@ -50,20 +51,25 @@ class SubjectController:
         return success, msg
 
     def show_subjects(self):
-        student = self.student_controller.get_current_student()
-        if not student:
-            return "Please login first"
-        if hasattr(student, "detailed_info") and callable(student.detailed_info):
-            return student.detailed_info()
+        student = self.student_controller
+        # if not student:
+        #     return "Please login first"
+        # if hasattr(student, "detailed_info") and callable(student.detailed_info):
+        #     return student.detailed_info()
+        # print(student)
 
-        subjects = getattr(student, "subjects", [])
+        # subjects = getattr(student, "subjects", [])
+        subjects = student.__getattribute__(student, "subjects", [])
+        # print(subjects)
         if not subjects:
             return "No subjects enrolled yet."
+        
         lines = [str(s) for s in subjects]
         avg = getattr(student, "average_mark", None)
         if avg is not None:
             lines.append(f"Average mark = {avg:.2f}")
         return "\n".join(lines)
+        
 
     def change_password(self, new_password):
         
