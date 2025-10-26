@@ -1,48 +1,46 @@
 from models.subject import Subject
 import utils.utils as utils
-import models.storage as db
 import logging
 import re
 
 _THREE_DIGIT_ID = re.compile(r"^(?:0[0-9]{2}|[1-9][0-9]{2})$")
 
 class SubjectController:
-    def __init__(self, studentController=None):
-        self.db = db.Database()
-        self.student_controller = studentController
+    def __init__(self, studentController):
+        self.studentController = studentController
 
     def enrol_subject(self):
-        student = self.student_controller.get_current_student()
+        student = self.studentController.getCurrentStudent()
         if not student:
             return False, "Please login first"
-        if not student.can_enrol():
-            return False, "Students are allowed to enrol in 4 subjects only"
+        # if not student.enrol():
+        #     return False, "Students are allowed to enrol in 4 subjects only"
 
-        existingIds = {s.id for s in getattr(student, "subjects", [])}
-        subject = Subject()
-        while subject.id in existingIds:
-            subject = Subject()
+        existingIds = {s.id for s in student.subject}
+        newSubject = Subject()
+        while newSubject.id in existingIds:
+            newSubject = Subject()
 
-        success, msg = student.enrol_subject(subject)
+        success, msg = student.enrol(newSubject)
         if success:
-            if self.student_controller.update_current_student():
-                logging.info(f"Student {student.id} enrolled in subject {subject.id}")
+            if self.studentController.updateCurrentStudent():
+                logging.info(f"Student {student.id} enrolled in subject {newSubject.id}")
             else:
-                logging.warning(f"Persist failed after enrol: student {student.id}, subject {subject.id}")
+                logging.warning(f"Persist failed after enrol: student {student.id}, subject {newSubject.id}")
         else:
             logging.debug(f"Enrol failed for student {getattr(student, 'id', '?')}: {msg}")
         return success, msg
 
     def remove_subject(self, subject_id):
-        student = self.student_controller.get_current_student()
+        student = self.studentController.getCurrentStudent()
         if not student:
             return False, "Please login first"
         if not isinstance(subject_id, str) or not _THREE_DIGIT_ID.match(subject_id):
             return False, "Invalid subject ID. Please enter a 3-digit ID (001–999)."
 
-        success, msg = student.remove_subject(subject_id)
+        success, msg = student.drop(subject_id)
         if success:
-            if self.student_controller.update_current_student():
+            if self.studentController.updateCurrentStudent():
                 logging.info(f"Student {student.id} removed subject {subject_id}")
             else:
                 logging.warning(f"Persist failed after remove: student {student.id}, subject {subject_id}")
@@ -50,40 +48,23 @@ class SubjectController:
             logging.debug(f"Remove failed {subject_id} for student {getattr(student, 'id', '?')}: {msg}")
         return success, msg
 
-    def show_subjects(self):
-        student = self.student_controller
-        # if not student:
-        #     return "Please login first"
-        # if hasattr(student, "detailed_info") and callable(student.detailed_info):
-        #     return student.detailed_info()
-        # print(student)
-
-        # subjects = getattr(student, "subjects", [])
-        subjects = student.__getattribute__(student, "subjects", [])
-        # print(subjects)
-        if not subjects:
-            return "No subjects enrolled yet."
+    def show_subjects(self) ->str:
+        student = self.studentController.getCurrentStudent()
+        if not student:
+            return "Please login first"
         
-        lines = [str(s) for s in subjects]
-        avg = getattr(student, "average_mark", None)
-        if avg is not None:
-            lines.append(f"Average mark = {avg:.2f}")
-        return "\n".join(lines)
-        
+        return student.detailedInfo()
 
     def change_password(self, new_password):
-        
-        student = self.student_controller.get_current_student()
+        student = self.studentController.getCurrentStudent()
         if not student:
             return False, "Please login first"
 
-        valid, msg = utils.validatePassword(new_password)
+        valid = utils.validatePassword(new_password)
         if not valid:
-            return False, msg
+            return False, "Invalid password format"
 
-        student.change_password(new_password)
-        if self.student_controller.update_current_student():
-            logging.info(f"Student {student.id} changed password")
+        student.password = new_password
+        
+        if self.studentController.updateCurrentStudent():
             return True, "Password changed successfully"
-        logging.error(f"Failed to persist password change for student {student.id}")
-        return False, "Failed to update password"
