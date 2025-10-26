@@ -39,10 +39,10 @@ class StudentSystem:
                     case 'r':
                         self._handleRegister()
                     case 'x':
-                        utils.infoMSG("Returning to main menu...")
+                        print(utils.infoMSG("Returning to main menu..."))
                         break
                     case _:
-                        utils.errMSG("Unavailable option.")
+                        print(utils.errMSG("Unavailable option."))
             else:
                 
                 choice = utils.getInput("Student Course Menu (c/e/d/s/x):")
@@ -59,11 +59,11 @@ class StudentSystem:
                         print(self.subjectController.show_subjects())
                     case 'x':
                         self._handleLogout()
-                        utils.infoMSG("Logout successful")
-                        utils.infoMSG("Returning to main menu...")
+                        print(utils.infoMSG("Logout successful"))
+                        print(utils.infoMSG("Returning to main menu..."))
                         break
                     case _:
-                        utils.errMSG("Unavailable option.")
+                        print(utils.errMSG("Unavailable option."))
 
     def _handleLogin(self):
         #login handler
