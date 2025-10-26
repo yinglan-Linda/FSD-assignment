@@ -57,7 +57,7 @@ class AdminController:
     def partitionStudents(self):
         students = self.db.readStudents()
         if not students:
-            return "No students in the database"
+            return utils.errMSG("No students in the database")
         fullEnrolled = [s for s in students if len(s.subjects) == 4]
         if not fullEnrolled:
             return "No students have enrolled in 4 subjects yet"
@@ -101,5 +101,4 @@ class AdminController:
                     result.append(f"ID:{student.id}, NAME:{student.name}, EMAIL:{student.email}, AVGMARK:{student.get_average_mark():.2f}")
                 result.append("")
         return "\n".join(result)
-
 
