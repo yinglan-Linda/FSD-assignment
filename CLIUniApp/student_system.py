@@ -5,8 +5,9 @@ import getpass
 
 """ student system """
 class StudentSystem:
-    def __init__(self, controller: StudentController):
+    def __init__(self, controller: StudentController): 
         self.studentController = StudentController()
+        self.subjectController = SubjectController(self.studentController)   # 创建实例
         self.currentStudent = None        # None 表示未登录/未注册
 
     def showMenu(self):
@@ -49,13 +50,13 @@ class StudentSystem:
                 match choice:
                     # """ Logged function  """
                     case 'c':
-                        SubjectController.change_password(self)
+                        self.subjectController.change_password()
                     case 'e':
-                        SubjectController.enrol_subject(self)
+                        self.subjectController.enrol_subject()
                     case 'd':
-                        SubjectController.remove_subject(self)
+                        self.subjectController.remove_subject()
                     case 's':
-                        SubjectController.show_subjects(self)
+                        print(self.subjectController.show_subjects())
                     case 'x':
                         self._handleLogout()
                         utils.infoMSG("Logout successful")

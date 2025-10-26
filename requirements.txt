@@ -6,7 +6,6 @@ Admin System - Show all students, Group or Sort them, Remove or Clear data - Adm
 
 Rules:
 Naming: 
-    Variables / Functions: use camelCase (e.g. studentName, getPassword).
     Classes: use PascalCase (e.g. UserLogin, UniSystemEntry) 
     Private constants or attributes inside a class start with an underscore (e.g. _adminName: "Jone Smith" )
 Comments:
