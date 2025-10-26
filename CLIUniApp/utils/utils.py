@@ -1,8 +1,6 @@
 import re
 from colorama import Fore,Style
 
-# get user input
-# get user input
 def getInput(prompt: str) -> str:
     return input(f"{Fore.BLUE}" + prompt + Style.RESET_ALL).strip().lower()
 

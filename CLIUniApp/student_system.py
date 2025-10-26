@@ -5,7 +5,7 @@ import getpass
 
 """ student system """
 class StudentSystem:
-    def __init__(self, controller: StudentController):
+    def __init__(self, controller: StudentController): 
         self.studentController = StudentController()
         self.subjectController = SubjectController(self.studentController)
         self.currentStudent = None        # None 表示未登录/未注册
@@ -51,7 +51,7 @@ class StudentSystem:
                         print(utils.errMSG("Unavailable option."))
             else:
                 
-                choice = utils.getInput("Student system (c/e/d/s/x):").strip().lower()
+                choice = utils.getInput("Student Course Menu (c/e/d/s/x):").strip().lower()
                 
                 match choice:
                     # """ Logged function  """

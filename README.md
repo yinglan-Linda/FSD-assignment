@@ -6,6 +6,37 @@
 13154719 – Fanke Qin\
 25629573 – Yuzhe Zheng
 
+## How to start
+Requirements
+    Python 3.7 or above
+    Required packages:
+    `pip install colorama`
+
+Project Structure
+
+This project includes two main parts:
+    1.CLIUniApp — Command-line version.
+    2.GUIUniApp — Graphical version built with Tkinter.
+    Do not separate the two folders. The GUI part depends on files from the CLI part.
+
+Run CLI Application
+In the CLIUniApp directory, run: `main.py`
+This will start the command-line version of the UniApp system.
+
+Run GUI Application
+After ensuring the CLI files are intact, go to GUIUniApp and run:`main.py`
+The GUI version will launch automatically, providing login and enrolment windows.
+
+## Contributions
+| Member               | Responsibilities                                                                                                                                                                             | Notes                                                                                      |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| **Yinglan Li**         | Implemented core data management and file persistence (`storage.py`, `student.json`), utility modules (`utils.py`, `student_system.py`, `admin_system.py`), and overall project integration. | Designed the JSON-based storage system to replace the original `database.py` (deprecated). |
+| **Yuzhe Zheng** | Developed `admin_controller.py` and initial `database.py` structure for data handling.                                                                                                       | The original `database.py` concept guided the later `storage.py` redesign.                 |
+| **Fanke Qin**           | Implemented `student_controller.py` and corresponding model `student.py`.                                                                                                                    | Focused on student login, validation, and enrolment logic.                                 |
+| **Anxin Yue**             | Implemented `subject_controller.py` and model `subject.py`.                                                                                                                                  | Focused on subject display and enrolment integration.                                      |
+
+
+
 ## git指令
 git中分为本地项目，暂存区，本地仓库，远程仓库
 ![git workflow](<git workflow.png>)

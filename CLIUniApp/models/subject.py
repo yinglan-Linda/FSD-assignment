@@ -13,6 +13,13 @@ class Subject:
     @staticmethod
     def _generateMark():
         return random.randint(25, 100)
+    
+    # 计算平均分
+    def averageMarks(subjects): 
+        if not subjects:
+            return 0
+        totalMarks = sum(subject.mark for subject in subjects)
+        return totalMarks / len(subjects)
 
     def _calculateGrade(self):
         if self.mark >= 85:

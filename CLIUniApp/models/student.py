@@ -126,5 +126,14 @@ class Student:
         #Generate a random student ID between 100000 and 999999.
         return str(random.randint(100000, 999999))
     
+    def getOverallGrade(self):
+        if not self.subjects:
+            return "N/A"
 
+        avg = self.calculateAverage()
+        if avg >= 85: return "HD"
+        if avg >= 75: return "D"
+        if avg >= 65: return "C"
+        if avg >= 50: return "P"
+        return "F"
         
