@@ -40,20 +40,20 @@ class AdminController:
         students = self.db.readStudents()
         if not students:
             return "No students in the database"
-        passStudents = [s for s in students if s.hasPass()]
+        passStudents = [s for s in students if s.hasPassed()]
         failStudents = [s for s in students if len(s.subjects) > 0 and not s.hasPassed()]
         result = [f"{Fore.YELLOW}PASS/FAIL PARTITION:{Style.RESET_ALL}"]
         result.append(f"PASS --> ")
         if passStudents:
             for student in passStudents:
-                result.append(f"{student.name} :: {student.id} -->  GRADE: {getOverallGrade} - MARK:{student.calculateAverage():.2f}")
+                result.append(f"{student.name} :: {student.id} -->  GRADE: {student.getOverallGrade()} - MARK:{student.calculateAverage():.2f}")
         else:
             result.append("No students in PASS category")
         result.append("")
         result.append(f"FAIL --> ")
         if failStudents:
             for student in failStudents:
-                result.append(f"{student.name} :: {student.id} -->  GRADE: {getOverallGrade} - MARK:{student.calculateAverage():.2f}")
+                result.append(f"{student.name} :: {student.id} -->  GRADE: {student.getOverallGrade()} - MARK:{student.calculateAverage():.2f}")
         else:
             result.append("No students in FAIL category")
         return "\n".join(result)
@@ -70,7 +70,7 @@ class AdminController:
             return "No student data available for grouping."
 
         gradeOrder = ["HD", "D", "C", "P", "F", "N/A"]
-        result = ['{Fore.YELLOW}GRADE GROUPING:{Style.RESET_ALL}']
+        result = [f"{Fore.YELLOW}GRADE GROUPING:{Style.RESET_ALL}"]
         
         for grade in gradeOrder:
             if grade in gradeGroups:
@@ -79,10 +79,11 @@ class AdminController:
                 for student in studentsInGrade:
                     # 对于有成绩的学生，显示其平均分
                     if grade != "N/A":
-                        result.append(f"{student.name} :: {student.id} -->  GRADE: {getOverallGrade} - MARK:{student.calculateAverage():.2f}")
+                        result.append(f"{student.name} :: {student.id} -->  GRADE: {student.getOverallGrade()} - MARK:{student.calculateAverage():.2f}")
                     else: # 对于未选课的学生
                         result.append(f"{student.name} :: {student.id} --> (No subjects enrolled)")
         return "\n".join(result)
+
 
 
 
