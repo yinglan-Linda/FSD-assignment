@@ -1,7 +1,12 @@
 import utils.utils as utils
+from controller.admin_controller import AdminController
 
 """ admin system """
-class AdminSystem:    
+class AdminSystem: 
+    def __init__(self, controller: AdminController | None = None):
+        # 创建并保存实例
+        self.adminController = controller or AdminController() 
+
     def helpMsg(self):
         print("Admin Menu:")
         print("(c) Clear Database File")
@@ -13,20 +18,24 @@ class AdminSystem:
         # utils.getInput("Start menu(c/g/p/r/s/x):")
 
 """ admin main menu """
-def adminMenu(self):
+def run(self):
     choice = utils.getInput("Start menu(c/g/p/r/s/x):")
     while (choice != 'x'):
         match choice:
             case 'c':
-                pass
+                ok, msg = self.adminController.clearDatabase()
+                utils.infoMSG(msg) if ok else utils.errMSG(msg)
+                # AdminController.clearDatabase()
             case 'g':
-                pass
+                print(self.adminController.groupByGrade())
             case 'p':
-                pass
+                print(self.adminController.partitionStudents())
             case 'r':
-                pass
+                sid = utils.getInput("Enter student ID to remove:")
+                ok, msg = self.adminController.removeStudent(sid)
+                utils.infoMSG(msg) if ok else utils.errMSG(msg)
             case 's':
-                pass
+                print(self.adminController.showAllStudents())
             case 'h':
                 self.helpMsg()
             case _:
