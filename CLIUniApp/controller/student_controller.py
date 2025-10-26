@@ -140,6 +140,7 @@ class StudentController:
         
         
         self.currentStudent = self._studentDictToObj(studentDict)
+        
         return self.currentStudent
     
     def getCurrentStudent(self) -> Optional[Student]:

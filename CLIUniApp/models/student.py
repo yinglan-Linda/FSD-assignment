@@ -127,7 +127,7 @@ class Student:
         return str(random.randint(100000, 999999))
     
     def getOverallGrade(self):
-        if not self.subjects:
+        if not self.subject:
             return "N/A"
 
         avg = self.calculateAverage()
@@ -135,5 +135,5 @@ class Student:
         if avg >= 75: return "D"
         if avg >= 65: return "C"
         if avg >= 50: return "P"
-        return "F"
+        return "Z"
         

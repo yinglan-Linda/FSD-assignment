@@ -36,20 +36,38 @@ class Database:
             email = item.get("email", "")
             password = item.get("password", "")
             subjects = item.get("subject") or item.get("subjects") or []
-            studentList.append(Student(sid, name, email, password, subjects))
+            
+            studentObj = Student(
+                ID=sid,
+                name=name,
+                email=email,
+                password=password,
+                subject=subjects
+            )
+            studentList.append(studentObj)
+            
         return studentList
 
     """写回 JSON 文件"""
     def writeStudents(self, students):
         data = []
         for s in students:
+            subjectList = []
+            for subj in getattr(s, "subject", []):
+                subjectList.append({
+                    "id": subj.id,
+                    "mark": subj.mark,
+                    "grade": getattr(subj, "grade", "")
+                })
+                
             data.append({
                 "ID": s.id,
                 "name": s.name,
                 "email": s.email,
                 "password": s.password,
-                "subject": list(s.subjects or [])
+                "subject": subjectList
             })
+        
         with open(self.filePath, "w", encoding="utf-8") as f:
             json.dump({"student": data}, f, ensure_ascii=False, indent=4)
 

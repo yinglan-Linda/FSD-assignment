@@ -6,7 +6,7 @@ import getpass
 """ student system """
 class StudentSystem:
     def __init__(self, controller: StudentController): 
-        self.studentController = StudentController()
+        self.studentController = controller
         self.subjectController = SubjectController(self.studentController)
         self.currentStudent = None        # None 表示未登录/未注册
 
@@ -117,11 +117,13 @@ class StudentSystem:
             print(utils.errMSG("Invalid password format."))
             return
 
+
         message = self.studentController.registerStudent(name, email, password)
+        print(utils.infoMSG(message))
 
         if "successfully" in message:
             self.currentStudent = self.studentController._findStudentByEmail(email)
-            print(utils.infoMSG("Register successful. You are now logged in."))
+            print(utils.infoMSG("Register successful. Please Login."))
 
     def _handleLogout(self):
         #logout handler

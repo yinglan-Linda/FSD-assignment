@@ -77,7 +77,7 @@ class AdminController:
         if not students:
             return "No students in the database"
         passStudents = [s for s in students if s.hasPassed()]
-        failStudents = [s for s in students if len(s.subjects) > 0 and not s.hasPassed()]
+        failStudents = [s for s in students if len(s.subject) > 0 and not s.hasPassed()]
         result = [utils.infoMSG("PASS/FAIL PARTITION:")]
         result.append(f"PASS --> ")
         if passStudents:
@@ -104,7 +104,7 @@ class AdminController:
         if not gradeGroups:
             return "No student data available for grouping."
 
-        gradeOrder = ["HD", "D", "C", "P", "F", "N/A"]
+        gradeOrder = ["HD", "D", "C", "P", "Z", "N/A"]
         result = [utils.infoMSG("GRADE GROUPING:")]
         
         for grade in gradeOrder:
