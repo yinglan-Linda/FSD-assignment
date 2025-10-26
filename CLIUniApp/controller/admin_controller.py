@@ -49,12 +49,28 @@ class AdminController:
         else:
             return False, "Failed to remove student"
     
+    def _confirm_action(self, action_message: str) -> bool:
+        """
+        Asks for a generic confirmation from the user.
+        Returns True if the user confirms with 'yes'.
+        """
+        # e.g., action_message = "delete ALL student data"
+        print(utils.errMSG(f"This will {action_message}! This action cannot be undone."))
+        confirmation = utils.getInput("Are you sure? (y/n): ")
+        return confirmation == "y"
+    
     def clearDatabase(self):
-        if self.db.clearAll():
-            print("All student data cleared by admin")
+        if self._confirm_action("clear the entire student database"):
+            self.db.clearAll()
             return True, "All student data cleared successfully"
         else:
             return False, "Failed to clear database"
+            # print(utils.infoMSG("Clear database action cancelled."))
+        # if self.db.clearAll():
+        #     print("All student data cleared by admin")
+        #     return True, "All student data cleared successfully"
+        # else:
+        #     return False, "Failed to clear database"
     
     def partitionStudents(self):
         students = self.db.readStudents()

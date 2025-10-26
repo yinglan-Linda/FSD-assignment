@@ -1,8 +1,8 @@
 {
     "student": [
         {
-            "ID": "250201",
             "name": "Alex A",
+            "ID": "250201",
             "email": "Alex.A@university.com",
             "password": "123456",
             "subject": [
@@ -19,9 +19,9 @@
             ]
         },
         {
-            "ID": "250202",
             "name": "Linda L",
             "email": "Linda.L@university.com",
+            "ID": "250202",
             "password": "123456",
             "subject": [
                 {
