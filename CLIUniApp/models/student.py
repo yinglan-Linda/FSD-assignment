@@ -111,9 +111,9 @@ class Student:
     def hasPassed(self):
         #Check if the student has passed all enrolled subjects.
         #A student must enroll in 4 subjects and average must be at least 50 to pass.
-        # if len(self.subjects) < 4:
-        #     print("Student has not enrolled in 4 subjects, currently enrolled in", len(self.subjects))
-        #     return False
+        if len(self.subjects) < 4:
+            # print("Student has not enrolled in 4 subjects, currently enrolled in", len(self.subjects))
+            return False
 
         average = self.calculateAverage()
         if average >= 50:

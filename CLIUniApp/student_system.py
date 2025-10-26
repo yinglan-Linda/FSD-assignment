@@ -45,7 +45,7 @@ class StudentSystem:
                         utils.errMSG("Unavailable option.")
             else:
                 
-                choice = utils.getInput("Student system (c/e/d/s/x):")
+                choice = utils.getInput("Student Course Menu (c/e/d/s/x):")
                 
                 match choice:
                     # """ Logged function  """
