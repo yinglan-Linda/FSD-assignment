@@ -68,7 +68,9 @@ class StudentSystem:
         #login handler
         print("Student Login selected") 
         email = utils.getInput("Enter email: ")
-        password = getpass.getpass("Enter password: ")
+        #password = getpass.getpass("Enter password: ")
+        #show password for testing purpose
+        password = input("Enter password: ")
 
         if not utils.validateEmail(email):
             utils.errMSG("Invalid email format.")
@@ -99,7 +101,9 @@ class StudentSystem:
             return
             
         utils.infoMSG("Email Available.")
-        password = getpass.getpass("Enter password: ")
+        #password = getpass.getpass("Enter password: ")
+        #show password for testing purpose
+        password = input("Enter password: ")
         
         if not utils.validatePassword(password):
             utils.errMSG("Invalid password format.")
