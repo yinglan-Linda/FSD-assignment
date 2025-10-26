@@ -4,6 +4,7 @@ Admin Controller
 
 from models.Database import Database
 from collections import defaultdict
+from colorama import Fore, Style
 
 class AdminController:
     def __init__(self):
@@ -82,6 +83,7 @@ class AdminController:
                     else: # 对于未选课的学生
                         result.append(f"{student.name} :: {student.id} --> (No subjects enrolled)")
         return "\n".join(result)
+
 
 
 
