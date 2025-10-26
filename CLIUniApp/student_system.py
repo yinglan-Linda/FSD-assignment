@@ -68,9 +68,11 @@ class StudentSystem:
 
     def _handleLogin(self):
         #login handler
-        print("Student Login selected") 
+        print("Student Login In") 
         email = utils.getInput("Enter email: ")
-        password = getpass.getpass("Enter password: ")
+        #password = getpass.getpass("Enter password: ")
+        #show password input
+        password = input("Enter password: ")
 
         if not utils.validate_email(email):
             utils.errMSG("Invalid email format.")
@@ -86,7 +88,7 @@ class StudentSystem:
 
     def _handleRegister(self):
         #register handler
-        print("Student Register selected")
+        print("Student Sign Up")
         name = utils.getInput("Enter name: ")
         email = utils.getInput("Enter email: ")
         
@@ -101,7 +103,9 @@ class StudentSystem:
             return
             
         utils.infoMSG("Email Available.")
-        password = getpass.getpass("Enter password: ")
+        #password = getpass.getpass("Enter password: ")
+        #show password input
+        password = input("Enter password: ")
         
         if not utils.validate_password(password):
             utils.errMSG("Invalid password format.")
@@ -119,45 +123,3 @@ class StudentSystem:
             infoMSG("Logging out...")
             self.currentStudent = None
             
-
-
-
-
-
-    # self.showMenu()
-
-    # # choice = getInput("Enter your choice: ")
-    # choice = utils.getInput("Student system (l/r/x):")
-
-    # while (choice != 'x'):
-    #     match choice:
-    #         # """ Unlogged function """
-    #         case 'l':
-    #             utils.infoMSG("Login successful")
-    #             self.showMenu()
-    #             pass 
-    #         case 'r':
-    #             utils.infoMSG("Register successful. You are now logged in.")
-    #             self.showMenu()
-    #             pass
-    #         # """ Logged function  """
-    #         case 'c':
-    #             pass
-    #         case 'e':
-    #             pass
-    #         case 'd':
-    #             pass
-    #         case 's':
-    #             pass
-    #         case _:
-    #             utils.errMSG("Unavailable option.")
-    #             # print(Fore.RED + "Unavailable option.")
-    #     choice = utils.getInput("Enter your choice: ")  # 更新一次 user input
-    
-    # if self.currentStudent == None:
-    #     utils.infoMSG("Returning to main menu...")  # 返回主菜单
-    # else:
-    #     self.currentStudent = None
-    #     utils.infoMSG("Logout successful")
-    #     utils.infoMSG("Returning to main menu...") # 返回主菜单
-    # return
