@@ -24,11 +24,11 @@ def main():
                 student = student_system.StudentSystem(studentCtrl) # 创建实例
                 student.run() #把实例传入student_system
             case _:
-                utils.infoMSG("Unavailable option.")
+                print(utils.infoMSG("Unavailable option."))
                 # print("Unavailable option. You can input 'h' to show more detail.")
         role = utils.getInput("University system: (a)admin/ (s)student/ (x)Exit>") # 更新一次 user input
 
-    utils.infoMSG("Thank you.")
+    print(utils.infoMSG("Thank you."))
     # print(Fore.YELLOW + "Thank you.")
 
 if __name__ == "__main__":
