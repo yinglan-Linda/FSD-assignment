@@ -127,9 +127,9 @@ class StudentSystem:
 
     def _handleLogout(self):
         #logout handler
-        if self.currentStudent:
-            print(utils.infoMSG("Logging out..."))
-            self.studentController.currentStudent = None
+        print(utils.infoMSG("Logging out..."))
+        self.studentController.currentStudent = None
+        self.currentStudent = None
             
     def _handleChangePassword(self):
         #handle password change
