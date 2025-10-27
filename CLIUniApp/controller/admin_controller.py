@@ -6,26 +6,9 @@ import models.storage as db
 from collections import defaultdict
 
 class AdminController:
-    DEFAULT_ADMIN_USERNAME = "admin"
-    DEFAULT_ADMIN_PASSWORD = "Admin123"
-
     def __init__(self):
         self.db = db.Database()
-        self.isLoggedIn = False
-    
-    def login(self, username, password):
-        if username == self.DEFAULT_ADMIN_USERNAME and password == self.DEFAULT_ADMIN_PASSWORD:
-            self.isLoggedIn = True
-            return True, "Admin login successful"
-        else:
-            return False, "Invalid username or password"
-
-    def logout(self):
-        self.isLoggedIn = False
-
-    def checkLogin(self):
-        return self.isLoggedIn
-
+        
     def showAllStudents(self):
         students = self.db.readStudents()
         # students = None
