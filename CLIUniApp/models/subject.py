@@ -2,6 +2,7 @@ import random
 
 class Subject:
     def __init__(self, subject_id=None, mark=None):
+        # default id/mark if not provided; grade is derived from mark
         self.id = subject_id if subject_id else self._generateId()
         self.mark = mark if mark is not None else self._generateMark()
         self.grade = self._calculateGrade()
@@ -21,6 +22,7 @@ class Subject:
         return totalMarks / len(subjects)
 
     def _calculateGrade(self):
+        # map mark to grade band: HD/D/C/P/Z
         if self.mark >= 85:
             return "HD"
         elif self.mark >= 75:
