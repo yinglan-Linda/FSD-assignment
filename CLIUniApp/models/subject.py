@@ -14,7 +14,6 @@ class Subject:
     def _generateMark():
         return random.randint(25, 100)
     
-    # 计算平均分
     def averageMarks(subjects): 
         if not subjects:
             return 0
@@ -44,4 +43,5 @@ class Subject:
             "id": self.id,
             "mark": self.mark,
             "grade": self.grade
+
         }
