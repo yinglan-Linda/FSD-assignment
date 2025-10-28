@@ -1,6 +1,7 @@
 import utils.utils as utils
 from controller.student_controller import StudentController
 from controller.subject_controller import SubjectController
+from colorama import Fore,Style
 import getpass
 
 """ student system """
@@ -78,7 +79,7 @@ class StudentSystem:
         email = utils.getInput("Enter email: ").strip()
         #password = getpass.getpass("Enter password: ")
         #show password for testing purpose
-        password = input("Enter password: ").strip()
+        password = input(f"{Fore.BLUE}Enter password: {Style.RESET_ALL}").strip()
 
         if not utils.validateEmail(email):
             print(utils.errMSG("Invalid email format."))

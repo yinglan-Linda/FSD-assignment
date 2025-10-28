@@ -39,7 +39,7 @@ class AdminSystem:
                     self.helpMsg()
                 case _:
                     print(utils.infoMSG("Unavailable option. You can input 'h' to show more detail."))
-            choice = utils.getInput("Start menu(c/g/p/r/s/x/ h for help):") # 更新一次 user input
+            choice = utils.getInput("Admin menu(c/g/p/r/s/x/ h for help):") # 更新一次 user input
         print(utils.infoMSG("Returning to main menu..."))
         return
     

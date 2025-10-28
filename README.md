@@ -1,5 +1,5 @@
 # Fundamental Software Development assignment
-2025 S2 32555
+2025 S2 32555 Group #3-Cmp1-01
 ## Team members
 25739703 – Xinyue An\
 25605561 – Yinglan Li\
