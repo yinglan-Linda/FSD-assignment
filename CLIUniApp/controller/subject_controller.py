@@ -6,6 +6,7 @@ import re
 _THREE_DIGIT_ID = re.compile(r"^(?:0[0-9]{2}|[1-9][0-9]{2})$")
 
 class SubjectController:
+    # Handles subject actions for the current student
     def __init__(self, studentController):
         self.studentController = studentController
 
@@ -21,6 +22,7 @@ class SubjectController:
         while newSubject.id in existingIds:
             newSubject = Subject()
 
+        # 4-subject limit is enforced inside student.enrol(...)
         success, msg = student.enrol(newSubject)
         if success:
             if self.studentController.updateCurrentStudent():
@@ -32,6 +34,7 @@ class SubjectController:
         return success, msg
 
     def remove_subject(self, subject_id):
+        # validate id, remove subject, then save
         student = self.studentController.getCurrentStudent()
         if not student:
             return False, "Please login first"
@@ -49,6 +52,7 @@ class SubjectController:
         return success, msg
 
     def show_subjects(self) ->str:
+        # return the student's formatted subject list and average
         student = self.studentController.getCurrentStudent()
         if not student:
             return "Please login first"
@@ -56,6 +60,7 @@ class SubjectController:
         return student.detailedInfo()
 
     def change_password(self, new_password):
+        # validate, update password, then save
         student = self.studentController.getCurrentStudent()
         if not student:
             return False, "Please login first"
@@ -68,3 +73,4 @@ class SubjectController:
         
         if self.studentController.updateCurrentStudent():
             return True, "Password changed successfully"
+
