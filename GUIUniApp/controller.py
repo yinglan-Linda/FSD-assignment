@@ -22,23 +22,23 @@ class EnrolController:
     def getSubjects(self):
         return self.repo.listAll()
 
-    def enrol(self, user, subjectNum):
-        
+    def enrol(self, user, subjectNum):   
         """临时验证 + 计数返回"""
-        # 合并已有和新选的
-        for sid in subjectNum:
-            user.subjects.append({"id": sid, "mark": None, "grade": ""})
-            if sid not in self.tempSelected:
-                self.tempSelected.append(sid)
-
-        # 如果超限，不添加本次勾选
-        if len(self.tempSelected) != 4:
-            # 把刚添加的撤回，防止越界
+        if len(subjectNum) == 4:
+            # 合并已有和新选的
             for sid in subjectNum:
-                if sid in self.tempSelected:
-                    self.tempSelected.remove(sid)
-            return False, f"You must select FOUR subjects.", len(self.tempSelected)
-        # todo: 在此保存选课（写文件/数据库等）
+                user.subjects.append({"id": sid, "mark": None, "grade": ""})
+                if sid not in self.tempSelected:
+                    self.tempSelected.append(sid)
+        else:
+            # 如果超限，不添加本次勾选
+            if len(self.tempSelected) != 4:
+                # 把刚添加的撤回，防止越界
+                for sid in subjectNum:
+                    if sid in self.tempSelected:
+                        self.tempSelected.remove(sid)
+                return False, f"You must select FOUR subjects.", len(self.tempSelected)
+        # 在此保存选课（写文件/数据库等）
         self.db.saveUser(user)
 
         # 成功：返回现在选了几门
