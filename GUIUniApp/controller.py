@@ -16,6 +16,7 @@ class UserController:
 class EnrolController:
     def __init__(self):
         self.repo = model.SubjectRepository()
+        self.db = model.Database() 
         self.tempSelected = []   # 用list或set都可以
 
     def getSubjects(self):
@@ -26,6 +27,7 @@ class EnrolController:
         """临时验证 + 计数返回"""
         # 合并已有和新选的
         for sid in subjectNum:
+            user.subjects.append({"id": sid, "mark": None, "grade": ""})
             if sid not in self.tempSelected:
                 self.tempSelected.append(sid)
 
@@ -37,6 +39,7 @@ class EnrolController:
                     self.tempSelected.remove(sid)
             return False, f"You must select FOUR subjects.", len(self.tempSelected)
         # todo: 在此保存选课（写文件/数据库等）
+        self.db.saveUser(user)
 
         # 成功：返回现在选了几门
         return True, "Enrolment successful.", len(self.tempSelected)

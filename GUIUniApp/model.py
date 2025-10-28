@@ -1,5 +1,6 @@
 import json
 import random
+from pathlib import Path
 
 class User:
     def __init__(self,name,email,password, id=None, subjects=None):
@@ -22,16 +23,34 @@ class User:
 
 class Database:
     def __init__(self):
+        # self._json_path = "./CLIUniApp/data/student.json"
+        # self.filePath = Path(__file__).resolve().parent.parent / "data" / "./CLIUniApp/data/student.json"
+        self.filePath = Path(__file__).resolve().parents[1] / "CLIUniApp" / "data" / "student.json"
         self.users = self.loadData()
-        self._json_path = "./CLIUniApp/data/student.json"
     
+    def _ensure_list(self, data):
+        """兼容 {"student":[...]} 或直接 [... ]"""
+        if isinstance(data, dict) and "student" in data:
+            return data["student"]
+        if isinstance(data, list):
+            return data
+        return []
+
     def loadData(self):
-        with open("./CLIUniApp/data/student.json", "r") as f:
-            data = json.load(f)
+        # with open(self.filePath, "r") as f:
+        #     data = json.load(f)
         # return [User(s["name"], s["email"], s["password"])
         #         for s in data.get("student", [])]
+        try:
+            with open(self.filePath, "r", encoding="utf-8") as f:
+                raw = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            print(f"Data file not found or corrupted, using empty user list.")
+            return []
+        
         users = []
-        for s in data.get("student", []):
+        # for s in data.get("student", []):
+        for s in self._ensure_list(raw):
             users.append(User(
                 name=s.get("name", ""),
                 email=s.get("email", ""),
@@ -56,10 +75,10 @@ class Database:
                 "name": u.name,
                 "email": u.email,
                 "password": u.password,
-                "ID": u.student_id,
+                "ID": u.id,
                 "subject": u.subjects,  # [{"id": "3xx", "mark": ..., "grade": ...}]
             })
-        with open(self._json_path, "w", encoding="utf-8") as f:
+        with open(self.filePath, "w", encoding="utf-8") as f:
             json.dump(payload, f, ensure_ascii=False, indent=2)
 
     # 仅更新某个 user 后保存
